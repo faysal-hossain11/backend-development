@@ -1,12 +1,22 @@
+
+
 const express = require('express');
 const app = express();
+const path = require('path')
 
-app.get("/", function(req, res) {
-    res.send("my first backend practice !");
+app.use(express.json());
+app.use(express.urlencoded({ extended: true}));
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('view engine', 'ejs');
+
+// this is my route
+app.get("/", (req, res, next) => {
+    res.render("index")
+});
+
+app.listen(3000, () => {
+    console.log("server is runnig on port 3000");
+    
+ 
 })
 
-app.get("/test", function(req, res) {
-    res.send("thsi is the test route reload  now then edit this time    ");
-})
-
-app.listen(3000);
